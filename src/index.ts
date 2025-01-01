@@ -12,6 +12,9 @@ app.use(
   })
 );
 app.use(express.json());
+app.get("/", (_req, res) => {
+  res.send("Sex");
+});
 app.use("/api/v1", v1Router);
 
 app.use(errorHandler);
