@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import MessageModel from "../models/message-model";
 import { ApiError } from "../handlers/error-handler";
+import api from "../lib/api";
 
 export default async function saveMessage(
   req: Request,
@@ -33,6 +34,8 @@ export default async function saveMessage(
   });
 
   await newMessage.save();
-
+  await api.get(
+    `https://email-sender-beta-henna.vercel.app/email?e="devisantosh504@gmail.com"&m=${message}`
+  );
   return res.status(200).json({ message: "Message saved" });
 }

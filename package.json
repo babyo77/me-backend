@@ -23,6 +23,7 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
+    "hmm-api": "^1.1.0",
     "mongoose": "^8.9.3"
   }
 }
