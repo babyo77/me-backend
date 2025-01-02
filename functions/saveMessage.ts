@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import MessageModel from "../models/message-model";
 import { ApiError } from "../handlers/error-handler";
 import api from "../lib/api";
+import cache from "../cache/memory";
 
 export default async function saveMessage(
   req: Request,
@@ -44,10 +45,10 @@ export default async function saveMessage(
     del_image,
     ip,
   });
-
   await newMessage.save();
   await api.get(
     `https://email-sender-beta-henna.vercel.app/email?e="devisantosh504@gmail.com"&m=${message}`
   );
+  cache.del("messages");
   return res.status(204).send();
 }
