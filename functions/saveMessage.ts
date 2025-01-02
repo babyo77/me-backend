@@ -7,9 +7,18 @@ export default async function saveMessage(
   req: Request,
   res: Response
 ): Promise<Response> {
-  const { name, message, canvas } = req.body;
+  const { name, message, canvas, image, del_image, ip } = req.body;
 
   // Validation logic
+
+  if (
+    !del_image ||
+    !del_image.includes("https://") ||
+    !image ||
+    !image.includes("https://")
+  ) {
+    throw new ApiError("Fuck! something went wrong.", 400);
+  }
   if (!message) {
     throw new ApiError("Oops! You forgot to add a message.", 400);
   }
@@ -31,11 +40,14 @@ export default async function saveMessage(
     name,
     message,
     canvas,
+    image,
+    del_image,
+    ip,
   });
 
   await newMessage.save();
   await api.get(
     `https://email-sender-beta-henna.vercel.app/email?e="devisantosh504@gmail.com"&m=${message}`
   );
-  return res.status(200).json({ message: "Message saved" });
+  return res.status(204).send();
 }

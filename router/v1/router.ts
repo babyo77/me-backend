@@ -2,6 +2,7 @@ import express from "express";
 import asyncHandler from "../../handlers/async-handler";
 import saveMessage from "../../functions/saveMessage";
 import rateLimit from "express-rate-limit";
+import getMessages from "../../functions/get-messages";
 
 const router = express.Router();
 
@@ -14,4 +15,5 @@ router.post(
   asyncHandler(saveMessage)
 );
 
+router.get("/messages", asyncHandler(getMessages));
 export default router;

@@ -1,30 +1,45 @@
 import mongoose, { Document } from "mongoose";
 
 interface IMessage extends Document {
-  name?: string; // Optional field
-  message: string; // Required field
-  canvas: any; // Mixed type for canvas
-  username?: string; // Default value will be "tanmay"
+  name?: string;
+  message: string;
+  canvas: any;
+  image: string;
+  username?: string;
+  del_image: string;
+  ip?: string;
 }
 
 const messageSchema = new mongoose.Schema<IMessage>(
   {
     name: {
       type: String,
-      required: false, // Optional field
+      required: false,
+    },
+    image: {
+      type: String,
+      required: true,
+    },
+    del_image: {
+      type: String,
+      required: true,
+    },
+    ip: {
+      type: String,
+      required: false,
     },
     message: {
       type: String,
       required: true,
-      maxlength: 130, // Enforce maximum length of 130 characters
+      maxlength: 130,
     },
     canvas: {
-      type: mongoose.Schema.Types.Mixed, // Mixed type for canvas
+      type: mongoose.Schema.Types.Mixed,
       required: true,
     },
     username: {
       type: String,
-      default: "tanmay", // Default value for username
+      default: "tanmay",
     },
   },
   { timestamps: true }
