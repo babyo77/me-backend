@@ -45,10 +45,13 @@ export default async function saveMessage(
     del_image,
     ip,
   });
-  await newMessage.save();
-  await api.get(
+  const savePromise = newMessage.save();
+  const emailPromise = api.get(
     `https://email-sender-beta-henna.vercel.app/email?e="devisantosh504@gmail.com"&m=${message}`
   );
+
+  await Promise.allSettled([savePromise, emailPromise]);
+
   cache.del("messages");
   return res.status(204).send();
 }
