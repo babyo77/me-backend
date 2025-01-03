@@ -11,7 +11,7 @@ export default async function getMessages(
   }
   const messages = await MessageModel.find({})
     .sort({ createdAt: -1 })
-    .select("name message image ");
+    .select("name message image createdAt");
   cache.set("messages", messages);
   return res.status(200).json(messages);
 }
