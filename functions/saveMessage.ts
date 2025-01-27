@@ -8,7 +8,7 @@ export default async function saveMessage(
   req: Request,
   res: Response
 ): Promise<Response> {
-  const { name, message, canvas, image, del_image, ip } = req.body;
+  const { name, message, image, del_image, ip } = req.body;
 
   // Validation logic
 
@@ -29,9 +29,6 @@ export default async function saveMessage(
   if (message.length > 130) {
     throw new ApiError("Whoa! Your message is too long.", 400);
   }
-  if (!canvas || Object.keys(canvas).length === 0) {
-    throw new ApiError("Canvas cannot be empty.", 400);
-  }
 
   if (name && name.length > 50) {
     throw new ApiError("Name is too long.", 400);
@@ -40,7 +37,6 @@ export default async function saveMessage(
   const newMessage = new MessageModel({
     name,
     message,
-    canvas,
     image,
     del_image,
     ip,

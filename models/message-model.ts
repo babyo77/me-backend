@@ -33,10 +33,7 @@ const messageSchema = new mongoose.Schema<IMessage>(
       required: true,
       maxlength: 130,
     },
-    canvas: {
-      type: mongoose.Schema.Types.Mixed,
-      required: true,
-    },
+
     username: {
       type: String,
       default: "tanmay",
