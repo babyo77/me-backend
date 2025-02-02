@@ -26,10 +26,6 @@ const messageSchema = new mongoose_1.default.Schema({
         required: true,
         maxlength: 130,
     },
-    canvas: {
-        type: mongoose_1.default.Schema.Types.Mixed,
-        required: true,
-    },
     username: {
         type: String,
         default: "tanmay",

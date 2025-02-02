@@ -18,7 +18,7 @@ const error_handler_1 = require("../handlers/error-handler");
 const memory_1 = __importDefault(require("../cache/memory"));
 function saveMessage(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { name, message, canvas, image, del_image, ip } = req.body;
+        const { name, message, image, del_image, ip } = req.body;
         // Validation logic
         if (!del_image ||
             !del_image.includes("https://") ||
@@ -35,16 +35,12 @@ function saveMessage(req, res) {
         if (message.length > 130) {
             throw new error_handler_1.ApiError("Whoa! Your message is too long.", 400);
         }
-        if (!canvas || Object.keys(canvas).length === 0) {
-            throw new error_handler_1.ApiError("Canvas cannot be empty.", 400);
-        }
         if (name && name.length > 50) {
             throw new error_handler_1.ApiError("Name is too long.", 400);
         }
         const newMessage = new message_model_1.default({
             name,
             message,
-            canvas,
             image,
             del_image,
             ip,
